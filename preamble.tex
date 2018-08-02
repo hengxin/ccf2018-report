@@ -17,11 +17,6 @@
 \newcommand{\xmark}{\ding{55}}%
 \def\checkmark{\tikz\fill[scale=0.5](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 
-\usepackage{graphicx, subcaption}
-\usepackage[export]{adjustbox}
-
-\usepackage[framemethod=TikZ]{mdframed}
-
 \usepackage[normalem]{ulem} % strike through text
 \newcommand{\soutthick}[1]{%
     \renewcommand{\ULthickness}{2.0pt}%
@@ -61,7 +56,9 @@
 \expandafter\def\expandafter\insertshorttitle\expandafter{%
   \insertshorttitle\hfill\insertframenumber\,/\,\inserttotalframenumber}
 %%%%%%%%%%%%%% for appendix %%%%%%%%%%%%%%%%
+\usepackage{subfig}
 
+\usepackage[export]{adjustbox}
 % for fig without caption: #1: width/size; #2: fig file
 \newcommand{\fignocaption}[2]{
   \begin{figure}[htp]
@@ -79,11 +76,41 @@
   \end{figure}
 }
 
+% colors
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\redoverlay}[2]{\textcolor<#2>{red}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\greenoverlay}[2]{\textcolor<#2>{green}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\blueoverlay}[2]{\textcolor<#2>{blue}{#1}}
+\newcommand{\purple}[1]{\textcolor{purple}{#1}}
+\newcommand{\cyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\violet}[1]{\textcolor{violet}{#1}}
+\newcommand{\lgray}[1]{\textcolor{lightgray}{#1}}
+\newcommand{\teal}[1]{\textcolor{teal}{#1}}
+\newcommand{\brown}[1]{\textcolor{brown}{#1}}
+
+\newcommand{\wlspec}{$\mathcal{A}_{\text{weak}}$}
+
+% colorded box
+\newcommand{\rbox}[1]{\red{\boxed{#1}}}
+\newcommand{\gbox}[1]{\green{\boxed{#1}}}
+\newcommand{\bbox}[1]{\blue{\boxed{#1}}}
+\newcommand{\pbox}[1]{\purple{\boxed{#1}}}
+
+\usepackage[linewidth = 1pt, framemethod = TikZ]{mdframed}
+\mdfsetup{frametitlealignment=\center}
+
 % for cite: #1: author; #2: conference #3: year
 \newcommand{\citeinbeamer}[3]{{\tiny{\textcolor{blue}{[#1@#2'#3]}}}}
 
-\usepackage[backend=bibtex]{biblatex}
-\addbibresource{phd-defense-report.bib}
+\usepackage[natbib = true, backend = bibtex, style = authoryear]{biblatex}
+% \usepackage[backend = biber, style = authoryear]{biblatex}
+\setbeamertemplate{bibliography item}[article]
+\renewcommand*{\bibfont}{\footnotesize}
+\addbibresource{ccf2018-report.bib}
+
+\newcommand{\ncite}[1]{\violet{\footnotesize [\cite{#1}]}}
 
 \newcommand{\term}[1]{\textcolor{blue}{\scriptsize (#1)}}
 \newcommand{\set}[1]{\{#1\}}
@@ -94,7 +121,20 @@
 \newcommand{\todo}[1]{\textcolor{red}{\textbf{TODO:} #1}}
 \newcommand{\mathbfblue}[1]{\textcolor{blue}{$\mathbf{#1}$}}
 
-\newcommand{\papertitle}{复制数据类型}
+\newcommand{\papertitle}{面向分布式系统的复制数据类型理论研究概述}
 \newcommand{\idea}{``多样化, 可调节; 精细化, 可度量''}
 \newcommand{\ideadt}{``多样化, 可调节''}
 \newcommand{\idearm}{``精细化, 可度量''}
+
+\newcommand{\thankyou}{
+  \begin{frame}{}
+    \begin{columns}
+      \column{0.50\textwidth}
+	\fignocaption{width = 0.80\textwidth}{figs/thankyou}
+      \column{0.50\textwidth}
+	\fignocaption{width = 0.70\textwidth}{figs/qa-green}
+    \end{columns}
+  \end{frame}
+}
+
+\usepackage{appendixnumberbeamer}

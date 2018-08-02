@@ -3,29 +3,56 @@
 \section{研究背景}
 
 %%%%%%%%%%%%%%%
-\begin{frame}{复制数据类型}
-  \begin{center}
-	Abstract Data Types {(\small \textsc{ADT})} \citeinbeamer{Liskov}{VHLL}{74}
+\begin{frame}{}
+  \begin{columns}
+    \column{0.50\textwidth}
+      \begin{center}
+	Abstract Data Types {(\small \textsc{ADT})} 
+	
+	\ncite{Liskov:VHLL74} \\[8pt]
 
-	{\small (单线程; 顺序语义)}\\[0.50cm]
+	{\small (单线程; 顺序语义)}
+      \end{center}
 
-	Concurrent Data Types {\small (\textsc{CDT})} \citeinbeamer{Herlihy}{TOPLAS}{90}
+      \vspace{0.20cm}
+      \fignocaption{frame, width = 0.45\textwidth}{figs/alg-ds-wirth}
+    \pause
+    \column{0.50\textwidth}
+      \begin{center}
+	Concurrent Data Types 
+	
+	\ncite{Herlihy:TOPLAS90} \\[8pt]
 
-	{\small (多线程; 并发语义)}\\[0.50cm]
+	{\small (多线程; 并发语义)}
+      \end{center}
 
-	Replicated Data Types {\small (\textsc{RDT}; \textcolor{red}{$\approx$ 2010 年})} \citeinbeamer{Burckhardt}{POPL}{14}
-
-	{\small (多副本; 复制语义)}\\
-  
-	\fignocaption{frame, width = 0.60\textwidth}{figs/rdt-popl}
-
-	\textcolor{red}{新平台, 新机遇, 新挑战}
-  \end{center}
+      \vspace{0.50cm}
+      \fignocaption{frame, width = 0.50\textwidth}{figs/taomp-herlihy}
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%
-\begin{frame}{大规模分布式应用}
+\begin{frame}{}
+  \begin{center}
+    Replicated Data Types {\small (\textsc{RDT}; \textcolor{red}{$\approx$ 2010 年})} 
+
+    \ncite{Burckhardt:POPL14} \\[8pt]
+
+    {\small (多副本; 复制语义)}
+  \end{center}
+
+  \vspace{0.30cm}
+  \fignocaption{frame, width = 0.80\textwidth}{figs/rdt-popl}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{\textcolor{red}{\large 新平台, 新问题, 新挑战}}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
   \fignocaption{width = 0.45\textwidth}{figs/sina-weibo-world-map.pdf}
   \vspace{0.50cm}
 
@@ -50,7 +77,7 @@
   \alt<1>{\let\thefootnote\relax\footnotetext{~}}{\footnotetext[2]{数据来自 \href{http://www.infoq.com/cn/articles/weibo-platform-availability-9999}{InfoQ}.}}
 \end{frame}
 %%%%%%%%%%%%%%%
-\begin{frame}{分布数据}
+\begin{frame}{}
   \graphicspath{{tikz/}}
   \begin{figure}[h!]
     \centering
@@ -59,35 +86,49 @@
     \end{adjustbox}
   \end{figure}
 
-  \textcolor{red}{分布数据 \term{distributed data}:}
-  \begin{enumerate}
+  \vspace{0.20cm}
+  \begin{center}
+    \begin{minipage}{0.65\textwidth}
+      \red{\large 分布数据 \term{distributed data}:}
+
+      \vspace{0.20cm}
+      \begin{enumerate}
 	\item<2-> 分区 \term{partition}: 水平扩展
-	\item<3-> 副本 \term{replication}: 就近访问, 容灾备份
-  \end{enumerate}
+	\item<3-> \fcolorbox{yellow}{yellow!60}{副本 \term{replication}}: 就近访问, 容灾备份
+      \end{enumerate}
+    \end{minipage}
+  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%
-% \begin{frame}{分布共享数据服务}
-%   \fignocaption{width = 0.55\textwidth}{figs/sina-weibo-redis.pdf}
-% 
-%   \begin{center}
-% 	分布共享数据服务 \term{中间件}
-% 
-% 	\term{Distributed Shared Data Service}
-% 	\vspace{0.30cm}
-% 
-% 	屏蔽底层数据分布性\; 提供共享数据抽象\; 简化上层应用开发
-%   \end{center}
-% \end{frame}
-% %%%%%%%%%%%%%%%
-% \begin{frame}{分布共享数据服务典型应用 (I)}
-%   \fig{width = 0.55\textwidth}{figs/dsss.pdf}
-%   {分布式存储系统 (\textcolor{blue}{\scriptsize 开源 [左]} \& \textcolor{red}{\scriptsize 商用 [右]}).}
-% 
-%   % \begin{description}
-%   %   \item[低延迟:] 就近访问副本数据
-%   %   \item[高可用性, 高容错性:] 备份容灾 
-%   % \end{description}
-% \end{frame}
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \begin{minipage}{0.50\textwidth}
+      {\large 复制数据类型} \ncite{Shapiro:TR11} 
+
+      \vspace{0.20cm}
+      \begin{itemize}
+	\setlength{\itemsep}{4pt}
+	\item \fcolorbox{yellow}{yellow!60}{Read/Write Register}
+	\item Counter
+	\item Set
+	\item \fcolorbox{yellow}{yellow!60}{List}
+	\item Hash Map
+	\item Disjoint Set
+	\item Graph
+      \end{itemize}
+    \end{minipage}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fignocaption{width = 0.75\textwidth}{figs/rdt-research}
+\end{frame}
+%%%%%%%%%%%%%%%
+
 % %%%%%%%%%%%%%%%
 % \begin{frame}{分布共享数据服务典型应用 (II)}
 %   \fig{width = 0.75\textwidth}{figs/file-share.pdf}
