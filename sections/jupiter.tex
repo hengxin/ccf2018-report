@@ -1,18 +1,17 @@
 % file: sections/jupiter.tex
 
-\section{Jupiter}
+\subsection{Jupiter}
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    \begin{mdframed}[frametitle = {\large Brief Announcement}, frametitlerule = true, frametitlebackgroundcolor = brown!20,
+    \begin{mdframed}[frametitle = {\large Brief Announcement @ PODC'2018~\footnotemark}, frametitlerule = true, frametitlebackgroundcolor = brown!20,
       frametitleaboveskip = 8pt, frametitlebelowskip = 8pt, innertopmargin = 10pt]
-      {\Large The \blue{Jupiter protocol}~\ncite{Nichols:UIST95}\footfullcite{Nichols:UIST95} for replicated list \\
-      \red{satisfies} the \blue{weak list specification}~\ncite{Attiya:PODC16}\footfullcite{Attiya:PODC16}.} \\[15pt]
+      {\Large 实现复制列表的 \blue{Jupiter 协议}~\ncite{Nichols:UIST95}\footfullcite{Nichols:UIST95} 
+      \red{满足} \blue{weak list specification}~\ncite{Attiya:PODC16}\footfullcite{Attiya:PODC16}.} \\[15pt]
     \end{mdframed}
 
-    \vspace{0.20cm}
-    {\large This was proposed as a conjecture in a PODC paper~\ncite{Attiya:PODC16}.}
+    \footnotetext{\large \uncover<2->{\blue{藏在脚注里的}}\red{猜想} @ PODC'2016 \ncite{Attiya:PODC16}}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -25,32 +24,34 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\teal{\Large \red{Replicated} collaborative text editing systems}}
+  \centerline{\teal{\Large 基于\red{副本}的协同文本编辑系统}}
 
   \fignocaption{width = 0.55\textwidth}{figs/coeditor}
 
   \pause
-  \vspace{-0.50cm}
+  \vspace{-0.40cm}
   \begin{center}
-    Replicas are required to respond to user operations \red{immediately}.  \\[3pt]
-
-    Updates are propagated to other replicas \red{asynchronously}.
+    \begin{itemize}
+      \centering
+      \item 副本节点要\red{立即}响应本地用户操作 \\[4pt]
+      \item 更新操作\red{异步}传播到其它副本节点
+    \end{itemize}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\Large \red{Replicated list object}: to model the core functionality}
+  \centerline{\Large \red{复制列表对象}: 建模编辑系统的核心功能}
   \vspace{0.30cm}
 
   \begin{center}
     \begin{minipage}{0.70\textwidth}
       \begin{description}
 	\setlength{\itemsep}{10pt}
-	\item[$\textsc{Ins}(a, p):$] Insert $a$ at position $p$.
-	\item[$\textsc{Del}(p):$] Delete the element at position $p$.
-	\item[$\textsc{Read}:$] Return the list.
+	\item[$\textsc{Ins}(a, p):$] 在 $p$ 位置插入元素 $a$
+	\item[$\textsc{Del}(p):$] 删除 $p$ 位置上的元素
+	\item[$\textsc{Read}:$] 返回该列表
       \end{description}
     \end{minipage}
   \end{center}
@@ -59,21 +60,40 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \fignocaption{width = 0.80\textwidth, frame}{figs/podc16-attiya}
+  \begin{cdef}[最终收敛性 (Eventual Convergence)~\ncite{Ellis:SIGMOD89}]
+    当用户不再提交更新操作时, 每个副本节点上的列表是相同的。
+  \end{cdef}
 
-  \vspace{0.20cm}
-  \begin{definition}[Weak List Specification \wlspec{}~\ncite{Attiya:PODC16}]
-    Informally, \wlspec{} requires the ordering between \red{elements that are not deleted} to be consistent across the system.
-  \end{definition}
+  \pause
+  \vspace{0.50cm}
 
+  \begin{cdef}[强最终一致性 (Strong Eventual Consistency)~\ncite{Shapiro:SSS11}]
+    如果两个副本节点处理了同一组用户操作, 那么这两个副本节点上对列表是相同的。
+  \end{cdef}
+
+  \pause
   \vspace{0.60cm}
-  \centerline{\teal{\large Specify a global property on all states across the system.}}
+  \centerline{\red{\large 对系统的\red{中间状态}缺少足够的约束}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\blue{\Large Pairwise state compatibility property:}}
+  \fignocaption{width = 0.80\textwidth, frame}{figs/podc16-attiya}
+
+  \vspace{0.20cm}
+  \begin{cdef}[Weak List Specification \wlspec{}~\ncite{Attiya:PODC16}]
+    Informally, \wlspec{} requires the ordering between \red{elements that are not deleted} to be consistent across the system.
+  \end{cdef}
+
+  \vspace{0.60cm}
+  \centerline{\teal{\large 定义在系统所有列表状态上的\red{全局}性质}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\blue{\Large 状态对兼容性 {\normalsize (Pairwise State Compatibility Property)}:}}
 
   \vspace{0.40cm}
   \begin{quote}
@@ -87,6 +107,7 @@
       \fignocaption{width = 0.45\textwidth}{figs/ex-weak-list-spec}
       \vspace{-0.60cm}
       \fignocaption{width = 0.30\textwidth}{figs/red-cross}
+    \pause
     \column{0.50\textwidth}
       \fignocaption{width = 0.55\textwidth}{figs/ex-strong-list-spec}
       \vspace{-0.60cm}
@@ -94,21 +115,23 @@
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\large Jupiter adopts the \red{client-server} architecture~\ncite{Nichols:UIST95}:}
+  \centerline{\large Jupiter 采用 \red{Client-Server} 架构~\ncite{Nichols:UIST95}}
 
   \begin{center}
-    \begin{minipage}{0.50\textwidth}
+    \begin{minipage}{0.40\textwidth}
       \input{tikz/jupiter-cs-tikz}
     \end{minipage}
   \end{center}
 
-  \vspace{-1.00cm}
+  \vspace{-0.60cm}
   \uncover<2->{
     \begin{center}
-      Operations are \red{totally ordered} at the server {\footnotesize (replica)}. \\[6pt]
-      Client {\footnotesize (replica)} $\xrightarrow[]{\quad \text{FIFO} \quad}$ server $\xrightarrow[]{\quad \text{FIFO} \quad}$ other clients
+      服务器负责将所有操作序列化 \\[6pt]
+      用户操作 $\xrightarrow[\text{\hl{立即返回}}]{\quad \text{提交} \quad}$ 客户 
+      $\xrightarrow[\text{更新操作}]{\quad \text{FIFO} \quad}$ 服务器 $\xrightarrow[\text{\hl{更新操作}}]{\quad \text{FIFO} \quad}$ 其它客户 
     \end{center}
   }
 \end{frame}
@@ -116,27 +139,72 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
+  \centerline{\large \red{操作转换} {\normalsize (Operational Transformation; OT)}~\ncite{Ellis:SIGMOD89} 技术}
+
+  \begin{columns}
+    \column{0.40\textwidth}
+      \begin{center}
+	\input{tikz/no-ot-tcs06-tikz}
+      \end{center}
+    \column{0.40\textwidth}
+      \begin{center}
+	\input{tikz/ot-tcs06-tikz}
+      \end{center}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fignocaption{width = 0.45\textwidth}{figs/ot}
+  \begin{equation*}
+    \resizebox{0.40\textwidth}{!}{$\sigma; o_1; o_2' \equiv \sigma; o_2; o_1'$}
+  \end{equation*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\large 针对列表的操作转换函数~\ncite{Ellis:SIGMOD89}}
+
+  \resizebox{\textwidth}{!}{
+    \begin{minipage}{\textwidth}
+      \input{sections/list-ot}
+    \end{minipage}
+  }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fignocaption{width = 0.75\textwidth}{figs/ot-diverge-two}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
   \begin{center}
-    {\large To achieve convergence, Jupiter uses \red{$2D$ state spaces}~\ncite{Xu:CSCW14}
-    to manage how and when to perform \red{OTs}~\footnote{OT: Operational Transformation}~\ncite{Ellis:SIGMOD89}.}
+    {\large 利用数据结构 \red{$2D$ 状态空间}~\ncite{Xu:CSCW14} \\
+    控制何时以及如何执行``操作转换''}
   \end{center}
 
-  \fignocaption{width = 0.32\textwidth}{figs/2d-statespace}
+  \fignocaption{width = 0.60\textwidth}{figs/ot-diverge-two}
+  % \fignocaption{width = 0.32\textwidth}{figs/2d-statespace}
 
-  \begin{center} 
-    There can be \red{$\le 2$ edges} coming from the same node ({\textsc{\footnotesize Local}} or \textsc{\footnotesize Global}).
+  \begin{center}
+    $2D$: {\textsc{Local}} \emph{vs.} \textsc{Global}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\large Each \red{client} maintains a $2D$ state space.}
+  \centerline{\large 每个 \red{Client} 维护一个 $2D$ 状态空间}
 
   % \fignocaption{width = 0.50\textwidth}{figs/jupiter-illustration-client3-notations}
-  \fignocaption{width = 0.60\textwidth}{figs/jupiter-illustration}
+  \fignocaption{width = 0.70\textwidth}{figs/jupiter-illustration}
 
-  \centerline{\large The \red{server} maintains $n \; (=3)$ $2D$ state spaces, one for each client.}
+  \centerline{\large \red{Server} 维护 $n \; (=3)$ 个 $2D$ 状态空间, 与 $n$ 个 Clients 对应}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 

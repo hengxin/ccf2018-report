@@ -34,12 +34,18 @@
 \usepackage{pgfplots}
 \usetikzlibrary{arrows.meta, shapes, positioning, calc, backgrounds, fit}
 
+\newcommand*{\circled}[2][]{\tikz[baseline=(C.base)]{
+    \node[inner sep = 0pt] (C) {\vphantom{1g}#2};
+    \node[draw, circle, inner sep = 3pt, yshift = 1pt, fill = red!40, opacity = 0.5]
+        at (C.center) {\vphantom{1g}};}}
+
 \theoremstyle{plain}
 \newtheorem{cdef}{定义}[section]
 \newtheorem{ctheorem}{定理}[section]
 \newtheorem{clemma}{引理}[section]
 \newtheorem{cquestion}{问题:}[section]
 \newtheorem{cobservation}{观察}[section]
+\newtheorem{prop}{命题}
 \theoremstyle{proof}
 \newtheorem{cproof}{证明}[section]
 
@@ -100,6 +106,8 @@
 
 \usepackage[linewidth = 1pt, framemethod = TikZ]{mdframed}
 \mdfsetup{frametitlealignment=\center}
+
+\newcommand{\hl}[1]{\fcolorbox{yellow}{yellow!60}{#1}}
 
 % for cite: #1: author; #2: conference #3: year
 \newcommand{\citeinbeamer}[3]{{\tiny{\textcolor{blue}{[#1@#2'#3]}}}}
