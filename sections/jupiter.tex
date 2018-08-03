@@ -18,7 +18,7 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\Huge \teal{Replicated List}}
+  \centerline{\Huge \teal{Weak List Specification}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -26,17 +26,18 @@
 \begin{frame}{}
   \centerline{\teal{\Large 基于\red{副本}的协同文本编辑系统}}
 
+  % \vspace{-0.20cm}
   \fignocaption{width = 0.55\textwidth}{figs/coeditor}
 
-  \pause
-  \vspace{-0.40cm}
-  \begin{center}
-    \begin{itemize}
-      \centering
-      \item 副本节点要\red{立即}响应本地用户操作 \\[4pt]
-      \item 更新操作\red{异步}传播到其它副本节点
-    \end{itemize}
-  \end{center}
+  % \pause
+  % \vspace{-0.40cm}
+  % \begin{center}
+  %   \begin{itemize}
+  %     \centering
+  %     \item replica要\red{立即}响应本地用户操作 \\[4pt]
+  %     \item 更新操作\red{异步}传播到其它replica
+  %   \end{itemize}
+  % \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -61,14 +62,14 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{cdef}[最终收敛性 (Eventual Convergence)~\ncite{Ellis:SIGMOD89}]
-    当用户不再提交更新操作时, 每个副本节点上的列表是相同的。
+    当用户不再提交更新操作时, 每个replica上的列表是相同的。
   \end{cdef}
 
   \pause
   \vspace{0.50cm}
 
   \begin{cdef}[强最终一致性 (Strong Eventual Consistency)~\ncite{Shapiro:SSS11}]
-    如果两个副本节点处理了同一组用户操作, 那么这两个副本节点上对列表是相同的。
+    如果两个replica处理了同一组用户操作, 那么这两个replica上对列表是相同的。
   \end{cdef}
 
   \pause
@@ -93,13 +94,10 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\blue{\Large 状态对兼容性 {\normalsize (Pairwise State Compatibility Property)}:}}
-
-  \vspace{0.40cm}
-  \begin{quote}
-    For any \red{pair} of list states, there \red{cannot} be two elements $a$ and $b$ such that $a$ precedes $b$ in one state
-    but $b$ precedes $a$ in the other.
-  \end{quote}
+  \begin{cdef}[状态对兼容性 (Pairwise State Compatibility Property)]
+    任给两个列表状态 $\sigma_0$、$\sigma_1$, 若它们含有两个共同元素 $a$、$b$, \\
+    则 $a$、$b$ 在 $\sigma_0$ 与 $\sigma_1$ 中的相对顺序保持一致。
+  \end{cdef}
 
   \vspace{0.30cm}
   \begin{columns}
@@ -118,20 +116,30 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\large Jupiter 采用 \red{Client-Server} 架构~\ncite{Nichols:UIST95}}
+  \centerline{\Huge \teal{Jupiter}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\large $\blue{(n+1)}\; \text{replica} \triangleq \blue{(n)}\; \text{\red{Client}} + \blue{(1)}\; \text{\red{Server}}$~\ncite{Nichols:UIST95}}
+
+  % \begin{center}
+  %   \begin{minipage}{0.35\textwidth}
+  %     \input{tikz/jupiter-cs-tikz}
+  %   \end{minipage}
+  % \end{center}
 
   \begin{center}
-    \begin{minipage}{0.40\textwidth}
-      \input{tikz/jupiter-cs-tikz}
-    \end{minipage}
+    \resizebox{0.50\textwidth}{!}{\input{tikz/jupiter-cs-tikz}}
   \end{center}
 
   \vspace{-0.60cm}
   \uncover<2->{
     \begin{center}
-      服务器负责将所有操作序列化 \\[6pt]
-      用户操作 $\xrightarrow[\text{\hl{立即返回}}]{\quad \text{提交} \quad}$ 客户 
-      $\xrightarrow[\text{更新操作}]{\quad \text{FIFO} \quad}$ 服务器 $\xrightarrow[\text{\hl{更新操作}}]{\quad \text{FIFO} \quad}$ 其它客户 
+      Server 负责将所有操作序列化 \\[6pt]
+      用户操作 $\xrightarrow[\text{\hl{立即返回}}]{\quad \text{提交} \quad}$ Client 
+      $\xrightarrow[\text{更新操作}]{\quad \text{FIFO} \quad}$ Server $\xrightarrow[\text{\hl{更新操作}}]{\quad \text{FIFO} \quad}$ 其它Clients 
     \end{center}
   }
 \end{frame}
@@ -156,9 +164,9 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \fignocaption{width = 0.45\textwidth}{figs/ot}
+  \fignocaption{width = 0.40\textwidth}{figs/ot}
   \begin{equation*}
-    \resizebox{0.40\textwidth}{!}{$\sigma; o_1; o_2' \equiv \sigma; o_2; o_1'$}
+    \text{\hl{交换律}}\;\; \resizebox{0.35\textwidth}{!}{$\sigma; o_1; o_2' \equiv \sigma; o_2; o_1'$}
   \end{equation*}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -204,87 +212,83 @@
   % \fignocaption{width = 0.50\textwidth}{figs/jupiter-illustration-client3-notations}
   \fignocaption{width = 0.70\textwidth}{figs/jupiter-illustration}
 
-  \centerline{\large \red{Server} 维护 $n \; (=3)$ 个 $2D$ 状态空间, 与 $n$ 个 Clients 对应}
+  \centerline{\large \red{Server} 维护 $n$ 个 $2D$ 状态空间, 与 $n$ 个 Clients 对应}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    {\large \red{Global property} on all replica states specified by \blue{\wlspec{}}}
+    {\large \blue{\wlspec{}} 所规定的\red{全局性质}}
 
     \vspace{0.20cm}
     \fignocaption{width = 0.30\textwidth}{figs/mismatch}
     \vspace{0.20cm}
 
-    {\large \red{Local view} each replica maintains in \blue{Jupiter}}
+    {\large \blue{Jupiter} 协议中, 每个replica所维护的\red{局部视图}}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{center}
-    {\large CJupiter maintains an \red{$n$-ary ordered state space} for each replica.}
-  \end{center}
+  \centerline{\LARGE \teal{CJupiter (Compact Jupiter)}}
 
-  \fignocaption{width = 0.40\textwidth}{figs/cjupiter-allinone}
-
-  \begin{center} 
-    There can be \red{more than two edges} coming from the same node. \\[5pt]
-    Edges from the same node are \red{totally ordered} by associated operations.
-  \end{center}
+  \pause
+  \vspace{1.0cm}
+  \begin{Theorem}[等价性]
+    在相同的操作调度下, CJupiter 与 Jupiter 中的对应replica的行为 {\small (状态序列)} 是相同的。
+  \end{Theorem}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    \begin{prop}[Compactness of CJupiter (Informal)]
-      {\large At a high level, CJupiter maintains only \red{one} $n$-ary ordered state space.}
+    {\large CJupiter 为每个replica维护一个 \red{$n$-ary} \blue{有序}状态空间}
+  \end{center}
+
+  \fignocaption{width = 0.50\textwidth}{figs/cjupiter-allinone}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \begin{prop}[Compactness of CJupiter]
+      {\large CJupiter 所维护的 $(n+1)$ 个$n$-ary有序状态空间是相同的。}
     \end{prop}
 
-    \vspace{0.20cm}
-    % \resizebox{0.50\textwidth}{!}{\input{tikz/cjupiter-allinone-path}}
-    \fignocaption{width = 0.40\textwidth}{figs/cjupiter-allinone-path}
+    \resizebox{0.50\textwidth}{!}{\input{tikz/cjupiter-allinone-path}}
 
-    \vspace{0.20cm}
-    Each replica behavior corresponds to a \red{path} going through this state space.
+    \uncover<2->{每个replica的行为对应于该状态空间中的一条\red{路径}}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{Theorem}[Equivalence of CJupiter and Jupiter]
-    Under the same schedule, the behaviors of corresponding replicas in CJupiter and Jupiter are the same.
-  \end{Theorem}
-
-  \vspace{1.0cm}
-  \centerline{\large From the perspectives of both the server and the clients.}
+  \centerline{\teal{\LARGE CJupiter 满足 Weak List Specification}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    {\large We focus on a single $n$-ary ordered state space.}
+    {\large 关注某个$n$-ary有序状态空间, 三步骤证明\red{状态对兼容性}}
   \end{center}
 
   \fignocaption{width = 0.45\textwidth}{figs/cjupiter-allinone-path}
-
-  \begin{center}
-    {\large We show the \red{pairwise state compatibility} property \blue{in three steps}.}
-  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\circled{1} Take any two nodes/states $v_1$ and $v_2$.}
+  \centerline{\circled{1} 任取两个状态节点 $v_1$和$v_2$}
 
-  \begin{lemma}[LCA (Lowest Common Ancestor)]
-    Each pair of states in the $n$-ary ordered state space has a \red{unique} LCA.
-  \end{lemma}
+  \begin{clemma}[LCA (Lowest Common Ancestor)]
+    $n$-ary 有序状态空间中的任意一对状态节点都有\red{唯一的}最近公共祖先。
+  \end{clemma}
 
   \begin{columns}
     \column{0.60\textwidth}
@@ -299,12 +303,12 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\circled{2} Consider the paths to $v_1$ and $v_2$ from their LCA $v_0$.}
+  \centerline{\circled{2} 考虑从 $v_0 = \text{LCA}(v_1, v_2)$ 到 $v_1$ 和 $v_2$ 的两条路径}
 
-  \begin{lemma}[Disjoint Paths]
-    The set of operations $O_{v_0 \leadsto v_1}$ along $P_{v_0 \leadsto v_1}$ 
-    is \red{disjoint} from the set of operations $O_{v_0 \leadsto v_2}$ along $P_{v_0 \leadsto v_2}$.
-  \end{lemma}
+  \begin{clemma}[Disjoint Paths]
+    路径 $P_{v_0 \leadsto v_1}$ 上包含的操作集 $O_{v_0 \leadsto v_1}$ 与路径 $P_{v_0 \leadsto v_2}$ 上包含的操作集
+    $O_{v_0 \leadsto v_2}$ 不相交。
+  \end{clemma}
 
   \begin{columns}
     \column{0.60\textwidth}
@@ -319,11 +323,11 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\circled{3} Consider the states in these two paths.}
+  \centerline{\circled{3} 考虑两条路径上的状态}
 
-  \begin{lemma}[Compatible Paths]
-    Each pair of states consisting of one state $v$ in $P_{v_0 \leadsto v_1}$ and the other $v'$ in $P_{v_0 \leadsto v_2}$ are \red{compatible}.
-  \end{lemma}
+  \begin{clemma}[Compatible Paths]
+    $P_{v_0 \leadsto v_1}$ 上的任一状态 $v$ 与 $P_{v_0 \leadsto v_2}$ 上的任一状态 $v'$ 是兼容的。
+  \end{clemma}
 
   \begin{columns}
     \column{0.60\textwidth}
@@ -333,11 +337,49 @@
 	  v_0 = \text{LCA}(v_1, v_2)
 	\]
 
+	\pause
 	\vspace{0.50cm}
 	\begin{center}
-	  {In particular, \\ $v_1$ and $v_2$ are compatible.}
+	  \hl{$\therefore$ $v_1$ 和 $v_2$ 是兼容的}
 	\end{center}
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\large \hl{个人感觉:} 基于 OT 思想的协议晦涩难懂}
+
+  \vspace{0.60cm}
+  \begin{columns}
+    \column{0.50\textwidth}
+      \only<1-2>{\fignocaption{width = 0.80\textwidth}{figs/thread}}
+      \only<3>{\fignocaption{width = 0.50\textwidth}{figs/emoji-cry}}
+    \column{0.50\textwidth}
+      \pause
+      \begin{itemize}
+	\setlength{\itemsep}{10pt}
+	\centering
+	\item 协议多种多样
+	\item 经常不加证明
+	\item 证明是错误的
+	\item<3-> \hl{\red{勘误也是错的}}
+      \end{itemize}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\large Model Checking: 使用 TLAPLUS}
+
+  \begin{columns}
+    \column{0.50\textwidth}
+      \fignocaption{width = 0.60\textwidth}{figs/tlaplus}
+      \fignocaption{width = 0.40\textwidth}{figs/lamport}
+    \column{0.50\textwidth}
+      
+      \centerline{\hl{Refinement}}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
