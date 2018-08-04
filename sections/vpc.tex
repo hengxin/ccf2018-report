@@ -115,27 +115,25 @@
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{center}
-    {\large VPC 问题的四种变体 (按``执行''的类型) 及复杂度分析 \\ \red{\normalsize ($[\ast]:$ 本文工作)}}
-  \end{center}
-
-  \vspace{-0.50cm}
   \begin{table}[!t]
     \centering
+    \caption{VPC 问题的四种变体 (按``执行''的类型) 及复杂度 \\ \red{\small ($[\ast]:$ 本文工作)}}
     \renewcommand\arraystretch{1.2}
-    \begin{tabular}{|c|c|c|}
-      \hline
-      & \it (S)ingle variable  & \it (M)ultiple variables
-      \\ \hline
-	  {\it write (D)uplicate values} &
-	  \innercell{c}{VPC-SD \\ \uncover<2->{\textcolor{red}{\small (\npc{}) $[\ast]$}}} &
-	  \innercell{c}{VPC-MD \\ \uncover<2->{\textcolor{red}{\small (\npc{}) $[\ast]$}}}
-      \\ \hline
-	  \only<1-2>{\it write (U)nique value}\only<3>{\cellcolor{brown!80}{\it write (U)nique value}} &
-	  \innercell{c}{VPC-SU \\ \uncover<2->{\textcolor{blue}{\small (P)}} \\ \uncover<2->{\ncite{Golab:PODC11}}} &
-	  \innercell{c}{VPC-MU \\ \uncover<2->{\textcolor{red}{\small (P) $[\ast]$}}}
-      \\ \hline
-    \end{tabular}
+    \resizebox{\textwidth}{!}{%
+      \begin{tabular}{|c|c|c|}
+	\hline
+	& \it (S)ingle variable  & \it (M)ultiple variables
+	\\ \hline
+	    {\it write (D)uplicate values} &
+	    \innercell{c}{VPC-SD \\ \uncover<2->{\textcolor{red}{\small (\npc{}) $[\ast]$}}} &
+	    \innercell{c}{VPC-MD \\ \uncover<2->{\textcolor{red}{\small (\npc{}) $[\ast]$}}}
+	\\ \hline
+	    \only<1-2>{\it write (U)nique value}\only<3>{\cellcolor{brown!80}{\it write (U)nique value}} &
+	    \innercell{c}{VPC-SU \\ \uncover<2->{\textcolor{blue}{\small (P)}} \\ \uncover<2->{\ncite{Golab:PODC11}}} &
+	    \innercell{c}{VPC-MU \\ \uncover<2->{\textcolor{red}{\small (P) $[\ast]$}}}
+	\\ \hline
+      \end{tabular}
+    }
   \end{table}
 
   \vspace{10pt}
@@ -325,19 +323,154 @@
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  % \mdf{red}{blue}{对 VPC 问题的系统研究}{
-  %   \begin{enumerate}
-  %     \item \readcentric{} 算法可用于测试系统是否正确实现了 \PRAM{} 一致性模型
-  %     \item \npcn{} 结果有助于理解弱一致性模型的复杂度
-  %   \end{enumerate}
-  % }
-
   \mdf{red}{blue}{VPC 在相关工作中的意义}{
     \hl{较早关注} {\small (分布式系统领域)} ``弱一致性模型验证''问题 {\small (\hl{\red{2013$\sim$}})}:
     \begin{description}
+      \setlength{\itemsep}{6pt}
       \item[强一致性:] \ncite{Gibbons:SICOMP97} \ncite{Cantin:TPDS05} \ncite{Golab:PODC11} 
-      \item[弱一致性:] \ncite{Furbach:ACSD14} \ncite{Bouajjani:arXiv16}
+      \item[弱一致性:] \ncite{Furbach:ACSD14} \ncite{Bouajjani:POPL17} \ncite{Emmi:CAV18}
     \end{description}
   }
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{table}[h]
+    \centering
+    \caption{{\bf VSC} (Verifying Sequential Consistency) 与 {\bf VL} (Verifying Linearizability) 问题的复杂度~\ncite{Gibbons:SICOMP97}}
+    % \renewcommand\arraystretch{1.1}
+    \resizebox{\textwidth}{!}{
+      \begin{tabular}{|c|c|c|}
+	\hline
+	{\bf Variants} & {\bf VSC} & {\bf VL}
+	\\ \hline \hline
+	\red{General problem} & \textsf{NP}-complete & \textsf{NP}-complete
+	\\ \hline
+	$2$ Operations/Process & \textsf{NP}-complete & w.l.o.g.
+	\footnote[frame]{The complexity is not affected by the given restriction.}
+	\\
+	$2$ Variables & \textsf{NP}-complete & w.l.o.g.\\
+	$3$ Processes & \textsf{NP}-complete & $O(n \log n)$
+	\\ \hline
+	Read-mapping & \textsf{NP}-complete &  $O(n \log n)$ \\
+	Write-order & \textsf{NP}-complete &  $O(n \log n)$ \\
+	\texttt{read\&write} only & \textsf{NP}-complete & \textsf{NP}-complete \\
+	Conflict-order & $O(n \log n)$ &  $O(n \log n)$
+	\\ \hline
+      \end{tabular}
+    }
+  \end{table}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{table}[h]
+    \centering
+    \caption{{\bf VMC} (Verifying Memory Coherence) 问题的复杂度~\ncite{Cantin:TPDS05}}
+    \renewcommand\arraystretch{1.1}
+    \resizebox{\textwidth}{!}{
+      \begin{tabular}{|c|c|c|}
+	\hline
+	{\bf Variants} & {\bf \texttt{\bf Read/Write}} & {\bf \texttt{\bf Read-Modify-Write}}
+	\\ \hline \hline
+	$1$ Operation/Process & $O(n \lg n)$ & $O(n^2)$ \\
+	$2$ Operations/Process & ? & \textsf{NP}-complete \\
+	$3+$ Operations/Process & \textsf{NP}-complete & \textsf{NP}-complete
+	\\ \hline
+	Constant $k$ processes & $O(n^k)$ & $O(n^k)$
+	\\ \hline
+	\innercell{c}{$1$ Write/Value \\ {\small (Read-mapping)}} & $O(n)$ & $O(n \lg n)$ \\
+	$2$ Writes/Value & \textsf{NP}-complete & ? \\
+	$3+$ Writes/Value & \textsf{NP}-complete & \textsf{NP}-complete
+	\\ \hline
+	Write-order & $O(n^2)$ & $O(n)$
+	\\ \hline
+      \end{tabular}
+    }
+  \end{table}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{table}[h]
+    \centering
+    \caption{Atomicity {\small (Linearizability)} 相关一致性模型验证问题复杂度 {\small (假设: 不允许写重复值)}}
+    \renewcommand\arraystretch{1.1}
+    \resizebox{\textwidth}{!}{
+      \begin{tabular}{|c|c|c|c|c|}
+	\hline
+	& \textbf{Safety} & \textbf{Regularity} & \textbf{Atomicity} & \textbf{Sequential}
+	\\ \hline  \hline
+	\begin{tabular}[c]{@{}c@{}}
+	  \textbf{Offline}\\ \ncite{Anderson:HotDep10}
+	\end{tabular}
+	& $O(n^2)$ & $O(n^2)$ & $O(n^3)$ & {\it not studied}
+	\\ \hline
+	\begin{tabular}[c]{@{}c@{}}\textbf{Online}~\footnote[frame]{包含其它假设}\\
+	\ncite{Golab:PODC11} \end{tabular} 
+	& $O(n)$ & $O(n)$ & $O(n \log n)$ & $\textsf{Poly}(n)$
+	\\ \hline
+      \end{tabular}
+    }
+  \end{table}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{cdef}[Atomicity \ncite{Lamport:DC86}]
+    直观地说, 每个操作 {\small (\textcolor{blue}{区间})} 都如同瞬时 {\small (\textcolor{blue}{点})} 发生的一样.
+
+    \fignocaption{width = 0.40\textwidth}{figs/atomicity-example}
+  \end{cdef}
+
+  \vspace{0.30cm}
+  \begin{center}
+    \textcolor{red}{Atomicity = 实时序 + 读写语义}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  $k$-atomicity \ncite{Aiyer:DISC05} \ncite{Taubenfeld:ICDCN13}
+
+  \begin{cdef}[$k$-AV {\small ($k$-Atomicity Verification)}]
+    $k$-AV 判定问题:
+    \vspace{8pt}
+    \begin{description}
+      \setlength{\itemsep}{8pt}
+      \item[实例:] 系统执行 $e$ \textcolor{blue}{\small (不允许写重复值)}
+      \item[问题:] 该执行 $e$ 是否满足 $k$-Atomicity?
+    \end{description}
+  \end{cdef}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{table}
+    \centering
+    \caption{$k$-AV {\small ($k$-Atomicity Verification)} 问题复杂度}
+    \renewcommand\arraystretch{1.1}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      {\bf 问题} & {\bf 变种} & {\bf 复杂度} & {\bf 引用} \\ \hline \hline
+      $1$-AV	&	不受限	&	\npc{}	&	\ncite{Gibbons:SICOMP97}	\\ \hline
+      $1$-AV	&	不允许写重复值	&	$O(n \log n)$	&	\ncite{Gibbons:SICOMP97}	\\ \hline		
+      $2$-AV	&	不允许写重复值	&	$O(n \log n)$	&	\ncite{Golab:ICDCS13}	\\ \hline
+      $k$-AV	&	\innercell{c}{不允许写重复值 \\ 并发度受限}	&	$O(n^2)$	&	\ncite{Golab:PODC15}	\\ \hline
+      \textcolor{red}{$k$-AV}	&	\textcolor{red}{不允许写重复值}	&	?	&	?	\\ \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  quantification; pa2am
 \end{frame}
 %%%%%%%%%%%%%%%

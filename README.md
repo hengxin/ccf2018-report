@@ -19,11 +19,13 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 ## PA2AM
 
 ## VPC
-- [ ] NPC 证明
-- [ ] VPC 相关工作 (在综述报告中)
+- [ ] NPC 证明: 介绍 the author
+- [x] VPC 相关工作 (在综述报告中)
+- [ ] Gibbon:SICOMP 确认 w.l.o.g 含义
 - [ ] k-atomicity 工作
-- [ ] On-line Monitoring
-- [ ] Verification of Protocol
+- [x] On-line Monitoring (了解不多，不写入报告)
+- [ ] Quantification
+- [x] Verification of Protocol (了解不多, 不写入报告)
 
 ## More Future Work
 - [ ] Specification
