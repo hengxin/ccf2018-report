@@ -5,17 +5,20 @@
 %%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    {\large Abstract Data Types {(\small \textsc{ADT})}} \ncite{Liskov:VHLL74} \\[8pt]
+    {\large Abstract Data Types} (\textsc{ADT}) \ncite{Liskov:VHLL74} \\[8pt]
 
     (单线程; 顺序语义)
   \end{center}
 
   \begin{columns}
-    \column{0.50\textwidth}
-      \fignocaption{width = 0.50\textwidth}{figs/alg-ds-wirth}
+    \column{0.40\textwidth}
+      \fignocaption{width = 0.60\textwidth}{figs/alg-ds-wirth}
     \pause
-    \column{0.50\textwidth}
-      \fignocaption{frame, width = 0.50\textwidth}{figs/simple-not-easy}
+    \column{0.20\textwidth}
+      \fignocaption{width = 0.50\textwidth}{figs/adt}
+    \pause
+    \column{0.40\textwidth}
+      \fignocaption{frame, width = 0.65\textwidth}{figs/simple-not-easy}
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%
@@ -29,11 +32,14 @@
   \end{center}
 
   \begin{columns}
-    \column{0.50\textwidth}
-      \fignocaption{width = 0.60\textwidth}{figs/taomp-herlihy}
+    \column{0.40\textwidth}
+      \fignocaption{width = 0.70\textwidth}{figs/taomp-herlihy}
     \pause
-    \column{0.50\textwidth}
-      \fignocaption{width = 0.70\textwidth}{figs/crack-computer}
+    \column{0.20\textwidth}
+      \fignocaption{width = 0.90\textwidth}{figs/cdt}
+    \pause
+    \column{0.40\textwidth}
+      \fignocaption{width = 0.85\textwidth}{figs/crack-computer}
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%
@@ -41,13 +47,19 @@
 %%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    \hl{\large Replicated Data Types} {\small (\textsc{RDT}; \textcolor{red}{$\approx$ 2010 年})} \ncite{Burckhardt:POPL14} \\[8pt]
+    \hl{\Large Replicated Data Types} {(\textsc{RDT}; \textcolor{red}{$\approx$ 2010 年})} \ncite{Burckhardt:POPL14} \\[8pt]
 
     (多副本; 复制语义)
   \end{center}
 
-  \vspace{0.30cm}
-  \fignocaption{frame, width = 0.80\textwidth}{figs/rdt-popl}
+  \pause
+  \begin{columns}
+    \column{0.50\textwidth}
+      \fignocaption{width = 0.60\textwidth}{figs/rdt}
+    \pause
+    \column{0.50\textwidth}
+      \fignocaption{width = 0.80\textwidth}{figs/complicated}
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%
 
@@ -55,17 +67,17 @@
 \begin{frame}{}
   \begin{columns}
     \column{0.50\textwidth}
-      \fignocaption{width = 0.55\textwidth}{figs/question-man-sit}
+      \fignocaption{width = 0.60\textwidth}{figs/keep-calm-why-bother}
     \pause
     \column{0.50\textwidth}
-      \centerline{\hl{\red{\LARGE 新平台, 新问题}}}
+      \centerline{\hl{\red{\Huge 新平台}}}
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\large 大规模分布式系统}
+  \centerline{\Large 大规模分布式系统}
 
   \fignocaption{width = 0.45\textwidth}{figs/sina-weibo-world-map.pdf}
   \vspace{0.50cm}
@@ -135,6 +147,22 @@
       \end{itemize}
     \end{minipage}
   \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.40\textwidth}
+      \fignocaption{width = 0.98\textwidth}{figs/what-is-new}
+    \column{0.60\textwidth}
+      \centerline{\hl{\red{\Huge 新问题, 新挑战}}}
+  \end{columns}
+
+  \pause
+  \vspace{0.30cm}
+  \fignocaption{frame, width = 0.80\textwidth}{figs/rdt-popl}
+  \centerline{\ncite{Burckhardt:POPL14}}
 \end{frame}
 %%%%%%%%%%%%%%%
 
