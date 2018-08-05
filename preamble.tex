@@ -33,7 +33,6 @@
 % \MakePerPage{footnote} %the perpage package command
 
 \usepackage{tikz}
-\usepackage{tikz-3dplot}
 \usepackage{pgfplots}
 \usetikzlibrary{arrows.meta, shapes, positioning, calc, backgrounds, fit}
 
@@ -66,6 +65,10 @@
   \insertshorttitle\hfill\insertframenumber\,/\,\inserttotalframenumber}
 %%%%%%%%%%%%%% for appendix %%%%%%%%%%%%%%%%
 \usepackage{graphicx, subcaption}
+
+\usepackage{caption}
+\DeclareCaptionLabelSeparator{none}{}
+\captionsetup{labelsep = none}
 
 \usepackage[export]{adjustbox}
 % for fig without caption: #1: width/size; #2: fig file
@@ -117,7 +120,6 @@
 \newcommand{\citeinbeamer}[3]{{\tiny{\textcolor{blue}{[#1@#2'#3]}}}}
 
 \usepackage[natbib = true, backend = bibtex, style = authoryear]{biblatex}
-% \usepackage[backend = biber, style = authoryear]{biblatex}
 \setbeamertemplate{bibliography item}[article]
 \renewcommand*{\bibfont}{\footnotesize}
 \addbibresource{ccf2018-report.bib}
@@ -134,9 +136,6 @@
 \newcommand{\mathbfblue}[1]{\textcolor{blue}{$\mathbf{#1}$}}
 
 \newcommand{\papertitle}{面向分布式系统的复制数据类型理论研究概述}
-\newcommand{\idea}{``多样化, 可调节; 精细化, 可度量''}
-\newcommand{\ideadt}{``多样化, 可调节''}
-\newcommand{\idearm}{``精细化, 可度量''}
 
 \newcommand{\thankyou}{
   \begin{frame}{}
@@ -148,5 +147,3 @@
     \end{columns}
   \end{frame}
 }
-
-\usepackage{appendixnumberbeamer}

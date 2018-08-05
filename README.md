@@ -18,6 +18,7 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 - [ ] DOING: crdt?
 
 ## PA2AM
+- [x] 在 vpc-related 中作简要介绍
 
 ## VPC
 - [ ] NPC 证明: 介绍 the author
@@ -31,10 +32,10 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 - [x] Verification of Protocol (了解不多, 不写入报告)
 
 ## More Future Work
-- [ ] Specification
-- [ ] Consensus
+- [x] Specification
+- [x] Consensus (了解不深入, 不作介绍)
 
 ## Typesetting
 - [x] 去除 Outline
-- [ ] \renewcommand\figurename{图} 不出现"图:"字样
+- [x] \renewcommand\figurename{图} 不出现"图:"字样
 - [x] \footnote 每页单独计数 ("perpage" 与 "zref-abspage" 冲突, 难以修改)
