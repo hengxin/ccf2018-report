@@ -8,11 +8,12 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 - [ ] 图片: crack-computer 去除水印
 - [ ] \hl for highlight 动画
 - [x] 新平台、新问题分开引入
-- [ ] "复制数据类型": 添加 iceberg 图片, 配合 \hl 动画
+- [x] "复制数据类型": 添加 iceberg 图片, 配合 \hl 动画 (取消该 TODO)
 - [ ] rdt-research.tex: 添加annotation和动画
 
 ## Jupiter
 - [ ] C/S 结构: 加上 User 角色; 添加动画设计
+- [ ] OT 动画
 - [x] cjupiter-tlaplus 作图
 - [ ] DOING: crdt?
 
@@ -22,11 +23,18 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 - [ ] NPC 证明: 介绍 the author
 - [x] VPC 相关工作 (在综述报告中)
 - [ ] Gibbon:SICOMP 确认 w.l.o.g 含义
-- [ ] k-atomicity 工作
+- [x] 介绍 k-atomicity
+- [ ] 介绍 k-atomicity: atomicity 例子重新作图
+- [x] 简单介绍 i-atomicity
+- [x] 简单介绍 Quantification (PA2AM 工作放在这里)
 - [x] On-line Monitoring (了解不多，不写入报告)
-- [ ] Quantification
 - [x] Verification of Protocol (了解不多, 不写入报告)
 
 ## More Future Work
 - [ ] Specification
 - [ ] Consensus
+
+## Typesetting
+- [x] 去除 Outline
+- [ ] \renewcommand\figurename{图} 不出现"图:"字样
+- [x] \footnote 每页单独计数 ("perpage" 与 "zref-abspage" 冲突, 难以修改)
