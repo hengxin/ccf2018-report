@@ -9,7 +9,8 @@
 
 \usetheme{CambridgeUS} % try Madrid
 \usecolortheme{beaver} % try beaver, dolphin, seahorse
-\usefonttheme[onlymath]{serif} % try "professionalfonts"
+% \usefonttheme[onlymath]{serif} % try "professionalfonts"
+\usefonttheme{serif}  % standard font (same with that in ``standalone'')
 \setCJKmainfont{Microsoft YaHei} % try SimSun
 
 \usepackage{amsmath, amsfonts, amssymb, mathtools, pifont}
@@ -36,7 +37,7 @@
 
 \usepackage{tikz}
 \usepackage{pgfplots}
-\usetikzlibrary{arrows.meta, shapes, positioning, calc, backgrounds, fit}
+\usetikzlibrary{arrows.meta, shapes, positioning, calc, backgrounds, fit, mindmap}
 
 \newcommand*{\circled}[2][]{\tikz[baseline=(C.base)]{
     \node[inner sep = 0pt] (C) {\vphantom{1g}#2};
@@ -128,7 +129,7 @@
 
 \newcommand{\ncite}[1]{\violet{\footnotesize [\cite{#1}]}}
 
-\newcommand{\term}[1]{\textcolor{blue}{\footnotesize (#1)}}
+\newcommand{\term}[1]{\small (#1)}
 \newcommand{\set}[1]{\{#1\}}
 \newcommand{\question}[1]{\textcolor{red}{\centerline{#1}}}
 \newcommand{\answer}[1]{\textcolor{blue}{\centerline {#1}}}

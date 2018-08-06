@@ -4,8 +4,8 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 
 # TODO
 
-## Overall
-- [ ] 精简篇幅
+## Overall: 精简篇幅
+- [x] 去掉 intro.tex 中不必要的图片和过渡
 
 ## Background
 - [x] 图片: adt, cdt, rdt 示意图
