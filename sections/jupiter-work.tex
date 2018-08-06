@@ -5,11 +5,11 @@
   \begin{center}
     \begin{mdframed}[frametitle = {\large Brief Announcement @ PODC'2018~\footnotemark}, frametitlerule = true, frametitlebackgroundcolor = brown!20,
       frametitleaboveskip = 8pt, frametitlebelowskip = 8pt, innertopmargin = 10pt]
-      {\Large 实现复制列表的 \blue{Jupiter 协议}~\ncite{Nichols:UIST95}\footfullcite{Nichols:UIST95} 
-      \red{满足} \blue{weak list specification}~\ncite{Attiya:PODC16}\footfullcite{Attiya:PODC16}.} \\[15pt]
+      {\large 实现复制列表的 \blue{Jupiter 协议}~\ncite{Nichols:UIST95}\footfullcite{Nichols:UIST95} \red{满足} \\
+      \blue{weak list specification}~\ncite{Attiya:PODC16}\footfullcite{Attiya:PODC16}.} \\[15pt]
     \end{mdframed}
 
-    \footnotetext{\large \uncover<2->{\blue{藏在脚注里的}}\red{猜想} @ PODC'2016 \ncite{Attiya:PODC16}}
+    \footnotetext{\normalsize \uncover<2->{藏在脚注里的}\red{猜想}@PODC'2016~\ncite{Attiya:PODC16}}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -59,25 +59,6 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{cdef}[最终收敛性 (Eventual Convergence)~\ncite{Ellis:SIGMOD89}]
-    当用户不再提交更新操作时, 每个replica上的列表是相同的。
-  \end{cdef}
-
-  \pause
-  \vspace{0.50cm}
-
-  \begin{cdef}[强最终一致性 (Strong Eventual Consistency)~\ncite{Shapiro:SSS11}]
-    如果两个replica处理了同一组用户操作, 那么这两个replica上对列表是相同的。
-  \end{cdef}
-
-  \pause
-  \vspace{0.60cm}
-  \centerline{\red{\large 对系统的\red{中间状态}缺少足够的约束}}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
   \fignocaption{width = 0.80\textwidth, frame}{figs/podc16-attiya}
 
   \vspace{0.20cm}
@@ -92,7 +73,7 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{cdef}[状态对兼容性 (Pairwise State Compatibility Property)]
+  \begin{cdef}[\hl{状态对兼容性} (Pairwise State Compatibility Property)]
     任给两个列表状态 $\sigma_0$、$\sigma_1$, 若它们含有两个共同元素 $a$、$b$, \\
     则 $a$、$b$ 在 $\sigma_0$ 与 $\sigma_1$ 中的相对顺序保持一致。
   \end{cdef}
@@ -100,12 +81,12 @@
   \vspace{0.30cm}
   \begin{columns}
     \column{0.50\textwidth}
-      \fignocaption{width = 0.45\textwidth}{figs/ex-weak-list-spec}
+      \fignocaption{width = 0.50\textwidth}{figs/ex-weak-list-spec}
       \vspace{-0.60cm}
       \fignocaption{width = 0.30\textwidth}{figs/red-cross}
     \pause
     \column{0.50\textwidth}
-      \fignocaption{width = 0.55\textwidth}{figs/ex-strong-list-spec}
+      \fignocaption{width = 0.65\textwidth}{figs/ex-strong-list-spec}
       \vspace{-0.60cm}
       \fignocaption{width = 0.20\textwidth}{figs/green-check}
   \end{columns}
@@ -120,13 +101,7 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\large $\blue{(n+1)}\; \text{replica} \triangleq \blue{(n)}\; \text{\red{Client}} + \blue{(1)}\; \text{\red{Server}}$~\ncite{Nichols:UIST95}}
-
-  % \begin{center}
-  %   \begin{minipage}{0.35\textwidth}
-  %     \input{tikz/jupiter-cs-tikz}
-  %   \end{minipage}
-  % \end{center}
+  \centerline{\large $\blue{(n+1)}\; \text{replicas} \triangleq \blue{(n)}\; \text{\red{Client}} + \blue{(1)}\; \text{\red{Server}}$~\ncite{Nichols:UIST95}}
 
   \begin{center}
     \resizebox{0.50\textwidth}{!}{\input{tikz/jupiter-cs-tikz}}
@@ -137,7 +112,7 @@
     \begin{center}
       Server 负责将所有操作序列化 \\[6pt]
       用户操作 $\xrightarrow[\text{\hl{立即返回}}]{\quad \text{提交} \quad}$ Client 
-      $\xrightarrow[\text{更新操作}]{\quad \text{FIFO} \quad}$ Server $\xrightarrow[\text{\hl{更新操作}}]{\quad \text{FIFO} \quad}$ 其它Clients 
+      $\xrightarrow[\text{更新操作}]{\quad \text{FIFO} \quad}$ Server $\xrightarrow[\text{更新操作}]{\quad \text{FIFO} \quad}$ 其它Clients 
     \end{center}
   }
 \end{frame}
@@ -145,7 +120,7 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\large \red{操作转换} {\normalsize (Operational Transformation; OT)}~\ncite{Ellis:SIGMOD89} 技术}
+  \centerline{\hl{\red{\large 操作转换}} (Operational Transformation; OT)~\ncite{Ellis:SIGMOD89}}
 
   \begin{columns}
     \column{0.40\textwidth}
@@ -163,39 +138,31 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \fignocaption{width = 0.40\textwidth}{figs/ot}
+
   \begin{equation*}
     \text{\hl{交换律}}\;\; \resizebox{0.35\textwidth}{!}{$\sigma; o_1; o_2' \equiv \sigma; o_2; o_1'$}
   \end{equation*}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \centerline{\large 针对列表的操作转换函数~\ncite{Ellis:SIGMOD89}}
-
-  \resizebox{\textwidth}{!}{
-    \begin{minipage}{\textwidth}
-      \input{sections/list-ot}
-    \end{minipage}
-  }
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \fignocaption{width = 0.75\textwidth}{figs/ot-diverge-two}
+  \centerline{\ncite{Ellis:SIGMOD89}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    {\large 利用数据结构 \red{$2D$ 状态空间}~\ncite{Xu:CSCW14} \\
+    \resizebox{0.75\textwidth}{!}{\input{tikz/ot-diverge-two}}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\large 利用数据结构 \hl{$2D$ 状态空间}~\ncite{Xu:CSCW14} \\
     控制何时以及如何执行``操作转换''}
   \end{center}
 
   \fignocaption{width = 0.60\textwidth}{figs/ot-diverge-two}
-  % \fignocaption{width = 0.32\textwidth}{figs/2d-statespace}
 
   \begin{center}
     $2D$: {\textsc{Local}} \emph{vs.} \textsc{Global}
@@ -207,7 +174,6 @@
 \begin{frame}{}
   \centerline{\large 每个 \red{Client} 维护一个 $2D$ 状态空间}
 
-  % \fignocaption{width = 0.50\textwidth}{figs/jupiter-illustration-client3-notations}
   \fignocaption{width = 0.70\textwidth}{figs/jupiter-illustration}
 
   \centerline{\large \red{Server} 维护 $n$ 个 $2D$ 状态空间, 与 $n$ 个 Clients 对应}
@@ -217,10 +183,13 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
+    \hl{\Huge Mismatch!}
+
+    \vspace{1.00cm}
     {\large \blue{\wlspec{}} 所规定的\red{全局性质}}
 
     \vspace{0.20cm}
-    \fignocaption{width = 0.30\textwidth}{figs/mismatch}
+    \fignocaption{width = 0.40\textwidth}{figs/mismatch}
     \vspace{0.20cm}
 
     {\large \blue{Jupiter} 协议中, 每个replica所维护的\red{局部视图}}
@@ -234,16 +203,16 @@
 
   \pause
   \vspace{1.0cm}
-  \begin{Theorem}[等价性]
-    在相同的操作调度下, CJupiter 与 Jupiter 中的对应replica的行为 {\small (状态序列)} 是相同的。
-  \end{Theorem}
+  \begin{ctheorem}[等价性]
+    在相同的操作调度下, \emph{CJupiter} 与 \emph{Jupiter} 中的对应replica的行为 {\small (状态序列)} 是相同的。
+  \end{ctheorem}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    {\large CJupiter 为每个replica维护一个 \red{$n$-ary} \blue{有序}状态空间}
+    {\large CJupiter 为每个replica维护一个 \hl{\red{$n$-ary} \blue{有序}状态空间}}
   \end{center}
 
   \fignocaption{width = 0.50\textwidth}{figs/cjupiter-allinone}
@@ -254,12 +223,12 @@
 \begin{frame}{}
   \begin{center}
     \begin{prop}[Compactness of CJupiter]
-      {\large CJupiter 所维护的 $(n+1)$ 个$n$-ary有序状态空间是相同的。}
+      {\large \emph{CJupiter} 所维护的 $(n+1)$ 个$n$-ary有序状态空间是相同的。}
     \end{prop}
 
     \resizebox{0.50\textwidth}{!}{\input{tikz/cjupiter-allinone-path}}
 
-    \uncover<2->{每个replica的行为对应于该状态空间中的一条\red{路径}}
+    \uncover<2->{每个replica的行为对应于该状态空间中的一条\hl{\red{路径}}}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -273,7 +242,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
-    {\large 关注某个$n$-ary有序状态空间, 三步骤证明\red{状态对兼容性}}
+    {\large 关注某个$n$-ary有序状态空间, \hl{三步骤}证明\red{``状态对兼容性''}}
   \end{center}
 
   \fignocaption{width = 0.45\textwidth}{figs/cjupiter-allinone-path}
@@ -343,4 +312,3 @@
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-
