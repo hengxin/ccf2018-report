@@ -29,6 +29,8 @@
 \setbeamertemplate{itemize items}[default]
 \setbeamertemplate{enumerate items}[default]
 
+% \hypersetup{colorlinks = false, urlcolor = DarkRed}
+
 % \usepackage{perpage} %the perpage package
 % \MakePerPage{footnote} %the perpage package command
 
@@ -89,7 +91,7 @@
 }
 
 % colors
-% \definecolor{darkred}{rgb}{0.55, 0.0, 0.0}
+\definecolor{DarkRed}{rgb}{0.55, 0.0, 0.0}
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 \newcommand{\redoverlay}[2]{\textcolor<#2>{red}{#1}}
 \newcommand{\green}[1]{\textcolor{green}{#1}}
@@ -126,7 +128,7 @@
 
 \newcommand{\ncite}[1]{\violet{\footnotesize [\cite{#1}]}}
 
-\newcommand{\term}[1]{\textcolor{blue}{\scriptsize (#1)}}
+\newcommand{\term}[1]{\textcolor{blue}{\footnotesize (#1)}}
 \newcommand{\set}[1]{\{#1\}}
 \newcommand{\question}[1]{\textcolor{red}{\centerline{#1}}}
 \newcommand{\answer}[1]{\textcolor{blue}{\centerline {#1}}}
@@ -135,15 +137,32 @@
 \newcommand{\todo}[1]{\textcolor{red}{\textbf{TODO:} #1}}
 \newcommand{\mathbfblue}[1]{\textcolor{blue}{$\mathbf{#1}$}}
 
+\newcommand{\hhref}[2]{\centerline{\href{#1}{\purple{\underline{#2}}}}}
+
 \newcommand{\papertitle}{面向分布式系统的复制数据类型理论研究概述}
 
 \newcommand{\thankyou}{
   \begin{frame}{}
     \begin{columns}
       \column{0.50\textwidth}
-	\fignocaption{width = 0.80\textwidth}{figs/thankyou}
+	\fignocaption{width = 0.80\textwidth}{figs/rdt-research-two-work}
       \column{0.50\textwidth}
-	\fignocaption{width = 0.70\textwidth}{figs/qa-green}
+	\fignocaption{width = 0.80\textwidth}{figs/thankyou}
+    \end{columns}
+
+    \begin{columns}[b]
+      \column{0.30\textwidth}
+	\fignocaption{width = 0.90\textwidth}{figs/hfwei-mail}
+	\vspace{-0.20cm}
+	\hhref{http://www.bigoh.net/wiki/index.php/user:Hengfeng-Wei}{hengxin@homepage}
+      \column{0.30\textwidth}
+	\fignocaption{width = 0.50\textwidth}{figs/github-icon}
+	\vspace{-0.20cm}
+	\hhref{https://github.com/hengxin}{hengxin@github}
+      \column{0.30\textwidth}
+	\fignocaption{width = 0.80\textwidth}{figs/hengxin-stack}
+	\vspace{-0.20cm}
+	\hhref{https://stackexchange.com/users/2055160/hengxin}{hengxin@stackexchange}
     \end{columns}
   \end{frame}
 }

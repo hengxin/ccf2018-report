@@ -1,15 +1,19 @@
 # ccf2018-report
+
 CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 
 # TODO
 
+## Overall
+- [ ] 精简篇幅
+
 ## Background
 - [x] 图片: adt, cdt, rdt 示意图
 - [ ] 图片: crack-computer 去除水印
-- [ ] \hl for highlight 动画
+- [x] \hl for highlight 动画 (暂时没有必要)
 - [x] 新平台、新问题分开引入
 - [x] "复制数据类型": 添加 iceberg 图片, 配合 \hl 动画 (取消该 TODO)
-- [ ] rdt-research.tex: 添加annotation和动画
+- [x] rdt-research.tex: 添加annotation和动画 (不需要)
 
 ## Jupiter
 - [ ] C/S 结构: 加上 User 角色; 添加动画设计
@@ -21,9 +25,9 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 - [x] 在 vpc-related 中作简要介绍
 
 ## VPC
-- [ ] NPC 证明: 介绍 the author
+- [x] NPC 证明: 介绍 the author
 - [x] VPC 相关工作 (在综述报告中)
-- [ ] Gibbon:SICOMP 确认 w.l.o.g 含义
+- [x] Gibbon:SICOMP 确认 w.l.o.g 含义 (修改为 NP-complete)
 - [x] 介绍 k-atomicity
 - [ ] 介绍 k-atomicity: atomicity 例子重新作图
 - [x] 简单介绍 i-atomicity
@@ -34,6 +38,9 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 ## More Future Work
 - [x] Specification
 - [x] Consensus (了解不深入, 不作介绍)
+
+## The End
+- [x] Summary + Thanks
 
 ## Typesetting
 - [x] 去除 Outline
