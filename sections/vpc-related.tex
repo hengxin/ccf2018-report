@@ -75,7 +75,7 @@
 \begin{frame}{}
   \begin{table}[h]
     \centering
-    \caption{Atomicity~\footnote{也称 Linearizability} 相关一致性模型验证问题复杂度 {\small (假设: 不允许写重复值)}}
+    \caption{{\bf Atomicity}~\footnote{也称 Linearizability} 相关一致性模型验证问题复杂度 {\small (假设: 不允许写重复值)}}
     \renewcommand\arraystretch{1.1}
     \resizebox{\textwidth}{!}{
       \begin{tabular}{|c|c|c|c|c|}
@@ -129,29 +129,27 @@
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  % \begin{cdef}[Atomicity \ncite{Lamport:DC86}]
-    % \centerline{直观地说, 每个操作 {\small (\textcolor{blue}{区间})} 都如同瞬时 {\small (\textcolor{blue}{点})} 发生的一样。}
+  % \centerline{直观地说, 每个操作 {\small (\textcolor{blue}{区间})} 都如同瞬时 {\small (\textcolor{blue}{点})} 发生的一样。}
   \begin{center}
     \hl{\large Atomicity = 实时序 + 读写语义} \\[5pt]
 
     \ncite{Lamport:DC86}
   \end{center}
-  % \end{cdef}
 
-  \vspace{0.50cm}
-  \fignocaption{width = 0.55\textwidth}{figs/atomicity-example}
+  \vspace{0.20cm}
+  \begin{center}
+    \resizebox{0.60\textwidth}{!}{\input{tikz/atomicity-example}}
+  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  % \begin{cdef}[$k$-Atomicity \ncite{Aiyer:DISC05} \ncite{Taubenfeld:ICDCN13}]
   \begin{center}
     \hl{\large $k$-Atomicity = 实时序 + $k$-读写语义} \\[5pt]
     
     \ncite{Aiyer:DISC05} \ncite{Taubenfeld:ICDCN13}
   \end{center}
-  % \end{cdef}
 
   \vspace{0.20cm}
   \begin{center}
@@ -172,33 +170,10 @@
     \vspace{8pt}
     \begin{description}
       \setlength{\itemsep}{8pt}
-      \item[实例:] 系统执行 $e$ \textcolor{blue}{\small (不允许写重复值)}、参数 $k$
-      \item[问题:] 该执行 $e$ 是否满足 $k$-Atomicity?
+      \item[实例:] 系统执行 $e$ \blue{\small \emph{(不允许写重复值)}}、参数 $k$
+      \item[问题:] 该执行 $e$ 是否满足 $k$\emph{-Atomicity?}
     \end{description}
   \end{cdef}
-\end{frame}
-%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%
-\begin{frame}{}
-  % \begin{cdef}[$\mathcal{I}$-Atomicity]
-  \begin{center}
-    \hl{\large $\mathcal{I}$-Atomicity = $i$-实时序 + 读写语义}
-  \end{center}
-  % \end{cdef}
-
-  \vspace{0.60cm}
-  \centerline{$\mathcal{I}$: Inversions}
-
-  \pause
-  \vspace{0.30cm}
-  \[
-    f(\set{\text{inversions}}) \le i
-  \]
-
-  \pause
-  \vspace{0.50cm}
-  \centerline{\large 定义\red{框架}}
 \end{frame}
 %%%%%%%%%%%%%%%
 

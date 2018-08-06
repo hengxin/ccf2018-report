@@ -9,7 +9,7 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 
 ## Background
 - [x] 图片: adt, cdt, rdt 示意图
-- [ ] 图片: crack-computer 去除水印
+- [x] 图片: crack-computer 去除水印 (已删除该图片)
 - [x] \hl for highlight 动画 (暂时没有必要)
 - [x] 新平台、新问题分开引入
 - [x] "复制数据类型": 添加 iceberg 图片, 配合 \hl 动画 (取消该 TODO)
@@ -17,9 +17,9 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 
 ## Jupiter
 - [ ] C/S 结构: 加上 User 角色; 添加动画设计
-- [ ] OT 动画
+- [x] OT 动画
 - [x] cjupiter-tlaplus 作图
-- [ ] DOING: crdt?
+- [x] DOING: crdt? (时间来不及, 不再添加)
 
 ## PA2AM
 - [x] 在 vpc-related 中作简要介绍
@@ -29,8 +29,8 @@ CCF 2018 第九届优博论坛报告 (北京大学 2018-08-08~2018-08-09)
 - [x] VPC 相关工作 (在综述报告中)
 - [x] Gibbon:SICOMP 确认 w.l.o.g 含义 (修改为 NP-complete)
 - [x] 介绍 k-atomicity
-- [ ] 介绍 k-atomicity: atomicity 例子重新作图
-- [x] 简单介绍 i-atomicity
+- [x] atomicity 例子重新作图
+- [x] 简单介绍 i-atomicity (放在 appendix 中)
 - [x] 简单介绍 Quantification (PA2AM 工作放在这里)
 - [x] On-line Monitoring (了解不多，不写入报告)
 - [x] Verification of Protocol (了解不多, 不写入报告)

@@ -2,23 +2,14 @@
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  \fignocaption{width = 0.60\textwidth}{figs/now-is-the-time}
-
-  \pause
   \begin{center}
     \vspace{0.50cm}
     协议验证 (Verification of a Protocol)
 
     \vspace{0.30cm}
     \hl{执行验证 (Verification of an Execution)}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \begin{center}
-    \hl{执行验证 (Verification of an Execution)}
+    \pause
     \vspace{0.50cm}
 
     \fignocaption{width = 0.50\textwidth}{figs/sla}
@@ -47,14 +38,12 @@
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{cdef}[VPC: Verifying PRAM Consistency]
-    VPC 判定问题:
-
+  \begin{cdef}[VPC (Verifying PRAM Consistency) 判定问题]
     \vspace{8pt}
     \begin{description}
       \setlength{\itemsep}{8pt}
       \item[实例:] 系统执行 {\small (execution $e$)}
-      \item[问题:] 该执行 $e$ 是否满足 PRAM 一致性模型 {\small ($\mathcal{C}$)}? 
+      \item[问题:] 该执行 $e$ 是否满足 \emph{PRAM} 一致性模型 {\small ($\mathcal{C}$)}? 
     \end{description}    
 
     \[
@@ -82,7 +71,7 @@
 \begin{frame}{}
   \begin{cdef}[\PRAM{} 一致性模型]
     \begin{center}
-      系统执行 $e$ 满足 {\it \PRAM{}} 一致性 \\[5pt]
+      系统执行 $e$ 满足 \emph{\PRAM{}} 一致性 \\[5pt]
       $\iff$ \\[5pt]
       $\forall p:$ $p$ 上\textcolor{blue}{所有操作}与其它进程上所有\textcolor{blue}{写操作}存在\textcolor{red}{合法}调度
     \end{center}
@@ -189,9 +178,9 @@
 \begin{frame}{}
   \begin{ctheorem}[\rwclosure{} 算法正确性]
     \begin{center}
-      \vpc{mu} 实例满足 \PRAM{} 一致性 \\[5pt]
+      \emph{\vpc{mu}} 实例满足 \emph{\PRAM{}} 一致性 \\[5pt]
       $\iff$ \\[5pt]
-      \rwclosure{} 算法所得图是 DAG 图
+      \rwclosure{} 算法所得图是 \emph{DAG} 图
     \end{center}
   \end{ctheorem}
 
@@ -201,16 +190,12 @@
   \begin{cproof}
     \begin{description}
       \item[``$\Longrightarrow$''] 反证法
-      \item[``$\Longleftarrow$''] 
-	\textcolor{red}{难点:} DAG 图蕴含着多个全序
-
-	\textcolor{red}{技巧:} 对读操作作数学归纳, 构造合法调度
+      \item[``$\Longleftarrow$''] \hl{对读操作作数学归纳}, 构造合法调度
     \end{description}
   \end{cproof}
 
   \pause
-  \vspace{0.30cm}
-
+  \vspace{0.50cm}
   \rwclosure{} 算法复杂度: 
   \[
     \underbrace{O(n^2)}_{\textrm{\#loops}} \quad\cdot
@@ -232,8 +217,8 @@
 
   \hl{VPC-MU 的多项式算法 \readcentric{} 要点:}
   \begin{itemize}
-	\item \textcolor{blue}{增量式}调度每个读操作
-	\item 在读操作诱导的\textcolor{blue}{局部子图}上按\textcolor{blue}{逆拓扑序}应用 $w'wr$ 规则
+    \item \textcolor{blue}{增量式}调度每个读操作
+    \item 在读操作诱导的\textcolor{blue}{局部子图}上按\textcolor{blue}{逆拓扑序}应用 $w'wr$ 规则
   \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%
@@ -242,42 +227,26 @@
 \begin{frame}{}
   \begin{ctheorem}[\readcentric{} 算法正确性]
     \begin{center}
-      \vpc{mu} 实例满足 \PRAM{} 一致性 \\[5pt]
+      \emph{\vpc{mu}} 实例满足 \emph{\PRAM{}} 一致性 \\[5pt]
       $\iff$ \\[5pt]
-      \readcentric{} 算法所得图是 DAG 图
+      \readcentric{} 算法所得图是 \emph{DAG} 图
     \end{center}
   \end{ctheorem}
 
   \pause
   \vspace{0.30cm}
-
   \begin{cproof}
     \[
-      \readcentric{} \textcolor{brown}{\xLeftrightarrow{\quad Reachability \quad}} \rwclosure{}
-    \]
-
-    \[
-      \text{\textcolor{red}{难点: }} \#w'wr_{\readcentric{}} \le \#w'wr_{\rwclosure{}}
+      \readcentric{}\;\; \purple{\xLeftrightarrow{\quad Reachability \quad}} \;\;\rwclosure{}
     \]
   \end{cproof}
-\end{frame}
-%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%
-\begin{frame}{}
+  \pause
+  \vspace{0.60cm}
   \readcentric{} 算法复杂度: 
   \[
-    \underbrace{O(n)}_{\textrm{iterations}} \cdot
-	\underbrace{O(n \cdot n^2)}_{\textcolor{red}{\textsc{Topo-Schedule}}} = O(n^4)
+    \underbrace{O(n)}_{\textrm{\blue{\#reads}}} \cdot
+    \underbrace{O(n \cdot n^2)}_{\red{\textsc{Topo-Schedule}}} = O(n^4)
   \]
-
-  \vspace{0.30cm}
-  \begin{clemma}[\textsc{Topo-Schedule} 的非迭代性]
-    \begin{center}
-      设\textsc{Topo-Schedule} 正在处理读操作$r$,\\
-      则\textcolor{blue}{局部子图}中的每个写操作\textcolor{red}{最多只有一次机会}\\
-      在满足规则 $w'wr$ 的三元组中扮演``$w'$角色''。
-    \end{center}
-  \end{clemma}
 \end{frame}
 %%%%%%%%%%%%%%%
