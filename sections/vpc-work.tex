@@ -4,7 +4,8 @@
 \begin{frame}{}
   \begin{center}
     \vspace{0.50cm}
-    协议验证 (Verification of a Protocol)
+    协议验证 (Verification of a Protocol) \\[5pt]
+    \ncite{Bouajjani:POPL14} \ncite{Bouajjani:POPL17}
 
     \vspace{0.30cm}
     \hl{执行验证 (Verification of an Execution)}
@@ -78,16 +79,19 @@
   \end{cdef}
 
   \vspace{0.30cm}
-  \fignocaption{width = 0.65\textwidth}{figs/execution-example.pdf}
+  % \fignocaption{width = 0.65\textwidth}{figs/execution-example.pdf}
+  \begin{center}
+    \resizebox{0.65\textwidth}{!}{\input{tikz/execution-example}}
+  \end{center}
 
   \pause
   \vspace{-0.80cm}
 
   \begin{gather*}
-    p_{0}: Wf2\; Wf1\; Wz2\; Wz1\; Wy2\; Wy1\; \textcolor{brown}{Rf1} 
-    Wx5\; Wx3\; Wx2\; Wc1\; \textcolor{brown}{Rc1} \\
+    p_{0}: Wf2\; Wf1\; Wz2\; \textcolor<3>{blue}{Wz1}\; Wy2\; Wy1\; \textcolor{brown}{Rf1} 
+    Wx5\; Wx3\; \textcolor<4>{red}{Wx2}\; Wc1\; \textcolor{brown}{Rc1} \\
     \textcolor{brown}{Rz1} \textcolor{brown}{Ry1}
-    Wa1\; \textcolor{brown}{Ra1} Wb1\; \textcolor{brown}{Rb1} \textcolor{brown}{Rx2}
+    Wa1\; \textcolor{brown}{Ra1} \textcolor<3>{blue}{Wb1}\; \textcolor{brown}{Rb1} \textcolor<4>{red}{\textcolor<1-3>{brown}{Rx2}}
   \end{gather*}
 \end{frame}
 %%%%%%%%%%%%%%%
